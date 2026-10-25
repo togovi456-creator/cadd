@@ -1,0 +1,1167 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Green African Impact Challenge — Des défis africains aux solutions africaines</title>
+<meta name="description" content="GAIC — Plateforme panafricaine d'innovation durable. 30 pays, 200+ projets, 5 finales régionales, 20 pilotes financés.">
+<meta property="og:title" content="Green African Impact Challenge">
+<meta property="og:description" content="Des défis africains aux solutions africaines.">
+<meta property="og:image" content="https://images.unsplash.com/photo-1516026672322-bc52d61a55d5?q=80&w=1200&auto=format&fit=crop">
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<script>
+tailwind.config = {
+  theme: { extend: {
+    fontFamily: { sans: ['Outfit', 'sans-serif'] },
+    colors: {
+      forest: { 50:'#F2F6F2',100:'#E1EAE1',200:'#B8CBB8',300:'#8BAA8B',400:'#5E855E',500:'#2D5F3F',600:'#254F35',700:'#1D3F2A',800:'#152F1F',900:'#0D1F14' },
+      sand: { 50:'#FAF8F3',100:'#F5F2E8',200:'#E8E2D0',300:'#D4C9A8' },
+      ink: { 900:'#0F1410',800:'#1A1F1B',700:'#2A302B',600:'#3D4540' }
+    }
+  }}
+}
+</script>
+<style>
+* { font-family: 'Outfit', sans-serif; -webkit-font-smoothing: antialiased; }
+body { background-color: #FAF8F3; color: #0F1410; overflow-x: hidden; }
+
+html.lenis, html.lenis body { height: auto; }
+.lenis.lenis-smooth { scroll-behavior: auto; }
+.lenis.lenis-stopped { overflow: hidden; }
+
+.skip-link { position: absolute; top: -100px; left: 8px; background: #2D5F3F; color: #FAF8F3; padding: 12px 20px; border-radius: 8px; z-index: 10000; transition: top .2s; }
+.skip-link:focus { top: 8px; }
+
+/* NAV */
+.nav-link { position: relative; font-weight: 500; font-size: .9rem; transition: color .2s; }
+.nav-link::after { content:''; position:absolute; left:0; bottom:-6px; width:0; height:1px; background: currentColor; transition: width .3s cubic-bezier(.16,1,.3,1); }
+.nav-link:hover::after, .nav-link.active::after { width: 100%; }
+
+/* BUTTONS */
+.btn-primary {
+  background:#2D5F3F; color:#FAF8F3; padding:.85rem 1.6rem; border-radius:9999px;
+  font-weight:500; font-size:.9rem; display:inline-flex; align-items:center; gap:.5rem;
+  border:1px solid #2D5F3F; transition: all .3s cubic-bezier(.16,1,.3,1);
+  position:relative; overflow:hidden;
+}
+.btn-primary::before { content:''; position:absolute; top:50%; left:50%; width:0; height:0; border-radius:50%; background:rgba(255,255,255,.1); transform:translate(-50%,-50%); transition:width .4s, height .4s; }
+.btn-primary:hover::before { width:300px; height:300px; }
+.btn-primary:hover { transform: translateY(-2px); }
+
+.btn-outline {
+  background:transparent; color:#2D5F3F; padding:.85rem 1.6rem; border-radius:9999px;
+  font-weight:500; font-size:.9rem; display:inline-flex; align-items:center; gap:.5rem;
+  border:1px solid #2D5F3F; transition: all .3s cubic-bezier(.16,1,.3,1);
+  position:relative; overflow:hidden;
+}
+.btn-outline::before { content:''; position:absolute; inset:0; background:#2D5F3F; transform:scaleX(0); transform-origin:right; transition:transform .3s cubic-bezier(.16,1,.3,1); }
+.btn-outline:hover::before { transform:scaleX(1); transform-origin:left; }
+.btn-outline span { position:relative; z-index:1; }
+.btn-outline:hover { color:#FAF8F3; transform:translateY(-2px); }
+
+/* TYPO */
+.eyebrow { font-size:.72rem; font-weight:600; letter-spacing:.22em; text-transform:uppercase; color:#2D5F3F; }
+.section-title { font-weight:700; letter-spacing:-.02em; line-height:1.05; color:#0F1410; }
+.lead { font-weight:400; line-height:1.65; color:#3D4540; }
+.divider { width:48px; height:1px; background:#2D5F3F; }
+.section-num { font-size:.7rem; font-weight:700; color:#8BAA8B; letter-spacing:.15em; }
+
+/* IMMERSIVE BANNER — NOUVEAU */
+.immersive-banner {
+  position: relative;
+  height: 340px;
+  overflow: hidden;
+  border-radius: 1.5rem;
+}
+.immersive-banner img {
+  width: 100%; height: 100%; object-fit: cover;
+  transition: transform 1.2s cubic-bezier(.16,1,.3,1);
+}
+.immersive-banner:hover img { transform: scale(1.05); }
+.immersive-banner::after {
+  content:''; position:absolute; inset:0;
+  background: linear-gradient(180deg, rgba(13,31,20,.15) 0%, rgba(13,31,20,.75) 100%);
+  pointer-events:none;
+}
+.immersive-banner-content {
+  position: absolute; bottom: 2rem; left: 2rem; right: 2rem; z-index: 2;
+  color: #FAF8F3;
+}
+
+/* CARD AVEC IMAGE — NOUVEAU */
+.img-card {
+  background: #FFF; border: 1px solid #E8E2D0;
+  border-radius: 1.25rem; overflow: hidden;
+  transition: all .4s cubic-bezier(.16,1,.3,1);
+  display: flex; flex-direction: column;
+}
+.img-card:hover { border-color: #2D5F3F; transform: translateY(-6px); box-shadow: 0 20px 40px -12px rgba(45,95,63,.25); }
+.img-card-media {
+  height: 180px; overflow: hidden; position: relative;
+}
+.img-card-media img {
+  width: 100%; height: 100%; object-fit: cover;
+  transition: transform .8s cubic-bezier(.16,1,.3,1);
+}
+.img-card:hover .img-card-media img { transform: scale(1.08); }
+.img-card-media::after {
+  content:''; position:absolute; inset:0;
+  background: linear-gradient(180deg, rgba(13,31,20,0) 50%, rgba(13,31,20,.55) 100%);
+}
+.img-card-media .badge {
+  position: absolute; top: 1rem; left: 1rem; z-index: 2;
+  background: rgba(250,248,243,.95); backdrop-filter: blur(8px);
+  padding: .35rem .75rem; border-radius: 9999px;
+  font-size: .7rem; font-weight: 700; color: #2D5F3F;
+  letter-spacing: .08em;
+}
+.img-card-media .icon-circle {
+  position: absolute; bottom: 1rem; right: 1rem; z-index: 2;
+  width: 44px; height: 44px; border-radius: 9999px;
+  background: #2D5F3F; color: #FAF8F3;
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 4px 12px rgba(0,0,0,.2);
+}
+
+/* DOMAIN PHOTO TILE — NOUVEAU */
+.domain-photo {
+  flex-shrink: 0; width: 300px; border-radius: 1.25rem;
+  overflow: hidden; position: relative; height: 360px;
+  scroll-snap-align: start;
+  transition: all .3s cubic-bezier(.16,1,.3,1);
+}
+.domain-photo img { width: 100%; height: 100%; object-fit: cover; transition: transform .8s cubic-bezier(.16,1,.3,1); }
+.domain-photo:hover img { transform: scale(1.1); }
+.domain-photo::after {
+  content:''; position:absolute; inset:0;
+  background: linear-gradient(180deg, rgba(13,31,20,.1) 0%, rgba(13,31,20,.85) 100%);
+}
+.domain-photo-content {
+  position: absolute; bottom: 0; left: 0; right: 0;
+  padding: 1.5rem; color: #FAF8F3; z-index: 2;
+}
+
+/* H-SCROLL */
+.h-scroll { display: flex; gap: 1.25rem; overflow-x: auto; scroll-snap-type: x mandatory; padding: .5rem .5rem 1.75rem; -webkit-overflow-scrolling: touch; scrollbar-width: thin; scrollbar-color: #2D5F3F #F5F2E8; }
+.h-scroll::-webkit-scrollbar { height: 6px; }
+.h-scroll::-webkit-scrollbar-track { background:#F5F2E8; border-radius:4px; }
+.h-scroll::-webkit-scrollbar-thumb { background:#2D5F3F; border-radius:4px; }
+
+/* PHASE — timeline avec images */
+.phase-row {
+  display: grid; grid-template-columns: 100px 1fr; gap: 1.5rem;
+  padding: 1.5rem 0; border-bottom: 1px solid #E8E2D0;
+  align-items: flex-start;
+}
+.phase-row:last-child { border-bottom: none; }
+.phase-thumb {
+  width: 100px; height: 100px; border-radius: 1rem;
+  overflow: hidden; position: relative; flex-shrink: 0;
+}
+.phase-thumb img { width: 100%; height: 100%; object-fit: cover; }
+.phase-thumb .num {
+  position: absolute; top: -.5rem; left: -.5rem;
+  width: 32px; height: 32px; border-radius: 9999px;
+  background: #2D5F3F; color: #FAF8F3;
+  display: flex; align-items: center; justify-content: center;
+  font-size: .8rem; font-weight: 700; border: 2px solid #FAF8F3;
+}
+
+/* IMPACT avec image */
+.impact-img-card {
+  border-radius: 1.5rem; overflow: hidden; position: relative;
+  min-height: 340px; display: flex; flex-direction: column; justify-content: flex-end;
+  transition: all .4s cubic-bezier(.16,1,.3,1);
+}
+.impact-img-card img {
+  position: absolute; inset: 0; width: 100%; height: 100%;
+  object-fit: cover; transition: transform .8s cubic-bezier(.16,1,.3,1);
+}
+.impact-img-card:hover img { transform: scale(1.08); }
+.impact-img-card::after {
+  content:''; position:absolute; inset:0;
+  background: linear-gradient(180deg, rgba(13,31,20,.2) 0%, rgba(13,31,20,.9) 100%);
+}
+.impact-img-card > * { position: relative; z-index: 2; }
+.impact-img-card:hover { transform: translateY(-4px); box-shadow: 0 24px 48px -12px rgba(13,31,20,.4); }
+
+/* TIMELINE */
+.timeline-item { position:relative; padding-left:2.25rem; padding-bottom:2rem; border-left:1px solid #B8CBB8; }
+.timeline-item:last-child { border-left:1px solid transparent; padding-bottom:0; }
+.timeline-item::before { content:''; position:absolute; left:-5px; top:6px; width:9px; height:9px; border-radius:9999px; background:#2D5F3F; border:2px solid #FAF8F3; box-shadow:0 0 0 1px #2D5F3F; }
+
+/* STATS */
+.stat-hero { text-align:center; padding: 2rem 1rem; }
+.stat-hero-value { font-size: clamp(2.5rem, 6vw, 4rem); font-weight:800; line-height:1; letter-spacing:-.03em; }
+.stat-hero-label { font-size:.75rem; text-transform:uppercase; letter-spacing:.15em; margin-top:.75rem; }
+
+/* BLOB */
+.morph-blob { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; animation: morph 8s ease-in-out infinite; }
+@keyframes morph {
+  0%,100% { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; }
+  50% { border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .morph-blob { animation: none; }
+  * { animation-duration: .01ms !important; transition-duration: .01ms !important; }
+}
+
+.circle-ring { position:absolute; border-radius:9999px; border:1px solid currentColor; pointer-events:none; }
+
+/* GRAIN */
+.grain {
+  position:fixed; top:-50%; left:-50%; right:-50%; bottom:-50%; width:200%; height:200%;
+  background: transparent url('data:image/svg+xml,%3Csvg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"%3E%3Cfilter id="noise"%3E%3CfeTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch"/%3E%3C/filter%3E%3Crect width="100%25" height="100%25" filter="url(%23noise)" opacity="0.03"/%3E%3C/svg%3E');
+  pointer-events:none; z-index:9999;
+}
+
+/* MOBILE MENU */
+.mobile-menu { transform: translateX(100%); transition: transform .3s cubic-bezier(.16,1,.3,1); }
+.mobile-menu.open { transform: translateX(0); }
+
+/* SECTION BANNER contextuel */
+.banner-header { position: relative; height: 200px; border-radius: 1.5rem; overflow: hidden; margin-bottom: 3rem; }
+.banner-header img { width: 100%; height: 100%; object-fit: cover; }
+.banner-header::after { content:''; position:absolute; inset:0; background: linear-gradient(90deg, rgba(13,31,20,.85) 0%, rgba(13,31,20,.4) 100%); }
+.banner-header-content { position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: center; padding: 2rem; color: #FAF8F3; z-index: 2; }
+
+@media (max-width: 768px) {
+  .section-title { font-size: 2.25rem; }
+  .immersive-banner { height: 260px; }
+  .phase-row { grid-template-columns: 80px 1fr; gap: 1rem; }
+  .phase-thumb { width: 80px; height: 80px; }
+  .banner-header { height: 160px; }
+}
+</style>
+</head>
+<body>
+
+<a href="#main" class="skip-link">Aller au contenu</a>
+<div class="grain" aria-hidden="true"></div>
+
+<!-- ============ NAV ============ -->
+<header class="fixed top-0 left-0 right-0 z-50 bg-sand-50/95 backdrop-blur-md border-b border-sand-200">
+  <div class="max-w-7xl mx-auto px-6 lg:px-10">
+    <div class="flex items-center justify-between h-20">
+      <a href="#top" class="flex items-center gap-3 group">
+        <div class="relative w-11 h-11 transition-transform duration-300 group-hover:scale-110 group-hover:rotate-12">
+          <div class="absolute inset-0 rounded-full border border-forest-500"></div>
+          <div class="absolute inset-1.5 rounded-full bg-forest-500 morph-blob"></div>
+          <span class="absolute inset-0 flex items-center justify-center text-sand-50 text-xs font-bold tracking-wider">GA</span>
+        </div>
+        <div class="leading-tight">
+          <div class="font-bold text-ink-900 text-sm">Green African</div>
+          <div class="text-xs text-forest-500 font-medium tracking-wide">IMPACT CHALLENGE</div>
+        </div>
+      </a>
+
+      <nav class="hidden lg:flex items-center gap-8" aria-label="Navigation principale">
+        <a href="#contexte" class="nav-link text-ink-800 hover:text-forest-500">Contexte</a>
+        <a href="#mission" class="nav-link text-ink-800 hover:text-forest-500">Mission</a>
+        <a href="#domaines" class="nav-link text-ink-800 hover:text-forest-500">Domaines</a>
+        <a href="#programme" class="nav-link text-ink-800 hover:text-forest-500">Programme</a>
+        <a href="#calendrier" class="nav-link text-ink-800 hover:text-forest-500">Calendrier</a>
+        <a href="#impact" class="nav-link text-ink-800 hover:text-forest-500">Impact</a>
+        <a href="#partenaires" class="nav-link text-ink-800 hover:text-forest-500">Partenaires</a>
+      </nav>
+
+      <div class="hidden lg:flex items-center">
+        <a href="#lance" class="btn-primary magnetic-btn">
+          <span>Lancement Lomé</span>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+        </a>
+      </div>
+
+      <button id="burger" class="lg:hidden w-10 h-10 flex items-center justify-center text-ink-900" aria-label="Ouvrir le menu" aria-expanded="false">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+  </div>
+
+  <div id="mobileMenu" class="mobile-menu fixed top-20 right-0 bottom-0 w-80 bg-sand-50 border-l border-sand-200 lg:hidden shadow-2xl">
+    <nav class="flex flex-col p-8 gap-6" aria-label="Navigation mobile">
+      <a href="#contexte" class="nav-link text-ink-800 text-lg">Contexte</a>
+      <a href="#mission" class="nav-link text-ink-800 text-lg">Mission</a>
+      <a href="#domaines" class="nav-link text-ink-800 text-lg">Domaines</a>
+      <a href="#programme" class="nav-link text-ink-800 text-lg">Programme</a>
+      <a href="#calendrier" class="nav-link text-ink-800 text-lg">Calendrier</a>
+      <a href="#impact" class="nav-link text-ink-800 text-lg">Impact</a>
+      <a href="#partenaires" class="nav-link text-ink-800 text-lg">Partenaires</a>
+      <a href="#lance" class="btn-primary mt-4 w-full justify-center">Lancement Lomé</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+
+<!-- ============ HERO IMMERSIF ============ -->
+<section class="relative min-h-screen flex items-center overflow-hidden pt-20" id="top">
+  <div class="parallax-container absolute inset-0 z-0">
+    <img src="https://images.unsplash.com/photo-1516026672322-bc52d61a55d5?q=80&w=1920&auto=format&fit=crop" alt="" class="parallax-layer absolute top-0 left-0 w-full h-[120%] object-cover" data-speed="0.5" aria-hidden="true">
+    <div class="absolute inset-0 bg-gradient-to-b from-forest-900/70 via-forest-900/80 to-forest-900/95"></div>
+  </div>
+
+  <div class="circle-ring w-[600px] h-[600px] -top-40 -right-40 text-sand-50 opacity-20"></div>
+  <div class="circle-ring w-[400px] h-[400px] -bottom-20 -left-20 text-sand-50 opacity-15"></div>
+
+  <div class="relative max-w-7xl mx-auto px-6 lg:px-10 py-20 w-full z-10">
+    <div class="grid lg:grid-cols-12 gap-12 items-center">
+      <div class="lg:col-span-7">
+        <div class="flex items-center gap-3 mb-6 overflow-hidden">
+          <div class="w-12 h-px bg-sand-50 opacity-70"></div>
+          <span class="text-xs font-semibold tracking-[0.22em] uppercase text-sand-200">Plateforme panafricaine d'innovation durable</span>
+        </div>
+        <h1 class="text-5xl md:text-6xl lg:text-7xl font-bold text-sand-50 mb-6 leading-[1.05] tracking-tight">
+          <span class="split-line block overflow-hidden"><span class="block">Des défis africains</span></span>
+          <span class="split-line block overflow-hidden"><span class="block text-forest-300">aux solutions</span></span>
+          <span class="split-line block overflow-hidden"><span class="block">africaines.</span></span>
+        </h1>
+        <p class="text-lg md:text-xl text-sand-100 max-w-2xl mb-8 leading-relaxed fade-text">
+          Le GAIC connecte gouvernements, chercheurs, startups et investisseurs pour transformer les priorités du continent en innovations testées, financées et déployées à l'échelle.
+        </p>
+        <div class="flex flex-wrap gap-4 fade-text">
+          <a href="#programme" class="btn-primary bg-sand-50 text-forest-900 border-sand-50 hover:bg-sand-200 hover:border-sand-200 magnetic-btn">
+            <span>Découvrir le programme</span>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+          </a>
+          <a href="#partenaires" class="btn-outline border-sand-50 text-sand-50 hover:bg-sand-50 hover:text-forest-900 magnetic-btn">
+            <span>Devenir partenaire</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- Visual hero : carte stats glassmorphism + photo contextuelle -->
+      <div class="lg:col-span-5 hidden lg:block">
+        <div class="relative">
+          <div class="rounded-3xl overflow-hidden border border-sand-50/20 shadow-2xl mb-4">
+            <img src="https://images.unsplash.com/photo-1547036967-23d11aacaee0?q=80&w=800&auto=format&fit=crop" alt="Innovation africaine" class="w-full h-56 object-cover">
+          </div>
+          <div class="bg-sand-50/10 backdrop-blur-md border border-sand-50/20 rounded-3xl p-6">
+            <div class="grid grid-cols-2 gap-6 text-center">
+              <div>
+                <div class="text-4xl font-bold text-sand-50"><span class="counter" data-target="30">0</span></div>
+                <div class="text-xs text-sand-200 mt-1">Pays</div>
+              </div>
+              <div>
+                <div class="text-4xl font-bold text-sand-50"><span class="counter" data-target="500">0</span>+</div>
+                <div class="text-xs text-sand-200 mt-1">Innovateurs</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CONTEXTE ============ -->
+<section id="contexte" class="relative py-24 md:py-32 bg-sand-50">
+  <div class="circle-ring w-[300px] h-[300px] -top-20 -left-20 text-forest-500 opacity-20"></div>
+  <div class="relative max-w-7xl mx-auto px-6 lg:px-10">
+    <div class="flex items-center gap-3 mb-6">
+      <div class="divider"></div>
+      <span class="eyebrow"><span class="section-num">01</span> — Contexte</span>
+    </div>
+    <h2 class="section-title text-4xl md:text-5xl mb-4 split-heading max-w-3xl">Un continent à la croisée des enjeux.</h2>
+    <p class="lead text-lg mb-10 max-w-3xl fade-text">L'Afrique fait face à des défis climatiques, alimentaires et économiques structurels. Sécheresses, stress hydrique et dépendance technologique affectent les populations, alors même que le continent dispose d'un vivier de créativité et d'innovation considérable.</p>
+
+    <div class="grid lg:grid-cols-12 gap-6 items-stretch">
+      <!-- Grande image contextuelle -->
+      <div class="lg:col-span-7 immersive-banner img-reveal">
+        <img src="https://images.unsplash.com/photo-1531482615713-2afd69097998?q=80&w=1200&auto=format&fit=crop" alt="Collaboration et innovation en Afrique">
+        <div class="immersive-banner-content">
+          <div class="text-xs font-semibold tracking-[0.2em] uppercase text-sand-200 mb-2">Un vivier de talents</div>
+          <div class="text-2xl font-bold leading-tight">Jeunes entrepreneurs, chercheurs et startups développent des solutions dans tous les secteurs stratégiques.</div>
+        </div>
+      </div>
+
+      <!-- Colonne de droite : 2 cards avec image -->
+      <div class="lg:col-span-5 grid gap-6">
+        <div class="img-card">
+          <div class="img-card-media">
+            <img src="https://images.unsplash.com/photo-1509316785289-025f5b846b35?q=80&w=800&auto=format&fit=crop" alt="Sécheresse et climat">
+            <div class="icon-circle">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M12 2v20M2 12h20" stroke-linecap="round"/><circle cx="12" cy="12" r="8" stroke-dasharray="2 3"/></svg>
+            </div>
+          </div>
+          <div class="p-5">
+            <h3 class="font-semibold text-ink-900 mb-2">Vulnérabilités climatiques</h3>
+            <p class="text-sm text-ink-600 leading-relaxed">Sécheresses, inondations et dégradation des terres affectent les économies et les territoires.</p>
+          </div>
+        </div>
+        <div class="img-card">
+          <div class="img-card-media">
+            <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?q=80&w=800&auto=format&fit=crop" alt="Jeunes innovateurs africains">
+            <div class="icon-circle">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="9" cy="7" r="4"/><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="19" cy="9" r="2"/></svg>
+            </div>
+          </div>
+          <div class="p-5">
+            <h3 class="font-semibold text-ink-900 mb-2">Un vivier d'innovation</h3>
+            <p class="text-sm text-ink-600 leading-relaxed">Jeunes entrepreneurs, chercheurs et startups développent des solutions dans tous les secteurs stratégiques.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ MISSION — bannière immersive ============ -->
+<section id="mission" class="relative py-24 md:py-32 bg-forest-500 text-sand-50 overflow-hidden">
+  <div class="circle-ring w-[500px] h-[500px] -top-40 -right-40 text-sand-50 opacity-10"></div>
+  <div class="relative max-w-7xl mx-auto px-6 lg:px-10">
+    <div class="text-center mb-12">
+      <div class="flex items-center justify-center gap-3 mb-6">
+        <div class="w-12 h-px bg-sand-50 opacity-50"></div>
+        <span class="text-xs font-semibold tracking-[0.2em] uppercase text-sand-100"><span class="section-num text-sand-300">02</span> — Vision & Mission</span>
+        <div class="w-12 h-px bg-sand-50 opacity-50"></div>
+      </div>
+      <h2 class="section-title text-4xl md:text-5xl text-sand-50 mb-6 split-heading">Faire de l'innovation africaine<br>un levier de transformation.</h2>
+    </div>
+
+    <!-- Bannière immersive avec image -->
+    <div class="immersive-banner mb-10 img-reveal" style="height: 380px;">
+      <img src="https://images.unsplash.com/photo-1466611653911-95081537e5b7?q=80&w=1600&auto=format&fit=crop" alt="Énergie solaire et innovation en Afrique">
+      <div class="immersive-banner-content text-center">
+        <div class="text-3xl md:text-4xl font-bold leading-tight max-w-3xl mx-auto">« Transformer les défis prioritaires en solutions innovantes, expérimentables, finançables et réplicables. »</div>
+      </div>
+    </div>
+
+    <div class="grid md:grid-cols-2 gap-8">
+      <!-- Vision -->
+      <div class="p-8 rounded-2xl bg-forest-600 border border-forest-400/30 card-animate">
+        <div class="flex items-center gap-3 mb-5">
+          <div class="w-12 h-12 rounded-full bg-sand-50/10 flex items-center justify-center">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#FAF8F3" stroke-width="1.5" aria-hidden="true"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg>
+          </div>
+          <div class="text-xs font-semibold tracking-[0.2em] uppercase text-sand-200">Vision</div>
+        </div>
+        <h3 class="text-xl font-bold mb-4 leading-tight">Une plateforme panafricaine pour transformer les défis prioritaires en solutions innovantes, expérimentables, finançables et réplicables.</h3>
+        <p class="text-sand-100 text-sm leading-relaxed">Le GAIC se positionne comme l'interface entre les gouvernements, les institutions, les entreprises et les partenaires, afin de créer de la valeur durable sur l'ensemble du continent.</p>
+      </div>
+      <!-- Mission -->
+      <div class="p-8 rounded-2xl bg-forest-700 border border-forest-400/30 card-animate">
+        <div class="flex items-center gap-3 mb-5">
+          <div class="w-12 h-12 rounded-full bg-sand-50/10 flex items-center justify-center">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#FAF8F3" stroke-width="1.5" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+          </div>
+          <div class="text-xs font-semibold tracking-[0.2em] uppercase text-sand-200">Mission</div>
+        </div>
+        <h3 class="text-xl font-bold mb-4 leading-tight">Mobiliser les compétences africaines — jeunes innovateurs, chercheurs, startups, universités — pour répondre aux défis climatiques et de développement durable.</h3>
+        <p class="text-sand-100 text-sm leading-relaxed">Identifier, accompagner, expérimenter, financer et mettre à l'échelle les solutions innovantes qui répondent aux priorités des pays africains.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CHIFFRES — fond vidéo ============ -->
+<section class="relative py-24 md:py-32 overflow-hidden">
+  <video autoplay muted loop playsinline class="absolute inset-0 w-full h-full object-cover z-0" aria-hidden="true">
+    <source src="https://cdn.pixabay.com/video/2020/05/25/40130-424725064_large.mp4" type="video/mp4">
+  </video>
+  <div class="absolute inset-0 bg-forest-900/85 z-[1]"></div>
+
+  <div class="relative max-w-7xl mx-auto px-6 lg:px-10 z-10">
+    <div class="max-w-3xl mb-10">
+      <div class="flex items-center gap-3 mb-6">
+        <div class="w-12 h-px bg-sand-50 opacity-50"></div>
+        <span class="text-xs font-semibold tracking-[0.2em] uppercase text-sand-200"><span class="section-num text-sand-300">03</span> — Le GAIC en chiffres</span>
+      </div>
+      <h2 class="section-title text-4xl md:text-5xl text-sand-50 mb-6 split-heading">Une ambition continentale mesurable.</h2>
+      <p class="lead text-sand-200 text-lg fade-text">Dès cette première édition, le programme ambitionne de mobiliser un vaste écosystème à travers tout le continent.</p>
+    </div>
+
+    <div class="grid md:grid-cols-3 gap-5 mb-8">
+      <div class="stat-hero bg-forest-700/60 backdrop-blur-md border border-sand-50/10 rounded-2xl">
+        <div class="stat-hero-value text-sand-50"><span class="counter" data-target="30">0</span>+</div>
+        <div class="stat-hero-label text-sand-200">Pays participants</div>
+      </div>
+      <div class="stat-hero bg-forest-600/60 backdrop-blur-md border border-sand-50/10 rounded-2xl">
+        <div class="stat-hero-value text-sand-50"><span class="counter" data-target="500">0</span>+</div>
+        <div class="stat-hero-label text-sand-200">Innovateurs attendus</div>
+      </div>
+      <div class="stat-hero bg-forest-500/60 backdrop-blur-md border border-sand-50/10 rounded-2xl">
+        <div class="stat-hero-value text-sand-50"><span class="counter" data-target="20">0</span></div>
+        <div class="stat-hero-label text-sand-200">Pilotes financés</div>
+      </div>
+    </div>
+
+    <div class="h-scroll">
+      <div class="flex-shrink-0 w-48 p-5 bg-sand-50/10 backdrop-blur-md border border-sand-50/15 rounded-2xl text-center">
+        <div class="text-3xl font-bold text-sand-50"><span class="counter" data-target="200">0</span>+</div>
+        <div class="text-xs text-sand-200 mt-1">Partenaires mobilisés</div>
+      </div>
+      <div class="flex-shrink-0 w-48 p-5 bg-sand-50/10 backdrop-blur-md border border-sand-50/15 rounded-2xl text-center">
+        <div class="text-3xl font-bold text-sand-50"><span class="counter" data-target="200">0</span>+</div>
+        <div class="text-xs text-sand-200 mt-1">Projets identifiés</div>
+      </div>
+      <div class="flex-shrink-0 w-48 p-5 bg-sand-50/10 backdrop-blur-md border border-sand-50/15 rounded-2xl text-center">
+        <div class="text-3xl font-bold text-sand-50"><span class="counter" data-target="100">0</span></div>
+        <div class="text-xs text-sand-200 mt-1">Présélectionnés</div>
+      </div>
+      <div class="flex-shrink-0 w-48 p-5 bg-sand-50/10 backdrop-blur-md border border-sand-50/15 rounded-2xl text-center">
+        <div class="text-3xl font-bold text-sand-50"><span class="counter" data-target="5">0</span></div>
+        <div class="text-xs text-sand-200 mt-1">Demi-finales régionales</div>
+      </div>
+      <div class="flex-shrink-0 w-48 p-5 bg-sand-50/10 backdrop-blur-md border border-sand-50/15 rounded-2xl text-center">
+        <div class="text-3xl font-bold text-sand-50"><span class="counter" data-target="1">0</span></div>
+        <div class="text-xs text-sand-200 mt-1">Finale panafricaine</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ DOMAINES — tuiles photo ============ -->
+<section id="domaines" class="relative py-24 md:py-32 bg-sand-50 overflow-hidden">
+  <div class="relative max-w-7xl mx-auto px-6 lg:px-10">
+    <div class="grid lg:grid-cols-12 gap-12 items-start mb-10">
+      <div class="lg:col-span-7">
+        <div class="flex items-center gap-3 mb-6">
+          <div class="divider"></div>
+          <span class="eyebrow"><span class="section-num">04</span> — Domaines d'intervention</span>
+        </div>
+        <h2 class="section-title text-4xl md:text-5xl mb-6 split-heading">Dix secteurs stratégiques pour l'Afrique de demain.</h2>
+        <p class="lead text-lg fade-text">Le GAIC couvre l'ensemble des priorités continentales, de l'agriculture durable aux technologies vertes. Faites défiler pour explorer.</p>
+      </div>
+      <div class="lg:col-span-5">
+        <div class="rounded-2xl overflow-hidden border border-sand-200 shadow-lg img-reveal">
+          <img src="https://images.unsplash.com/photo-1625246333195-78d9c38ad449?q=80&w=800&auto=format&fit=crop" alt="Agriculture et innovation en Afrique" class="w-full h-56 object-cover">
+        </div>
+      </div>
+    </div>
+
+    <div class="h-scroll" role="region" aria-label="Domaines — défilement horizontal">
+      <!-- 1 -->
+      <div class="domain-photo">
+        <img src="https://images.unsplash.com/photo-1500937386664-56d1dfef3854?q=80&w=800&auto=format&fit=crop" alt="Agriculture durable">
+        <div class="domain-photo-content">
+          <div class="text-xs font-bold tracking-widest text-sand-300 mb-1">01</div>
+          <h3 class="font-bold text-lg mb-1">Agriculture durable</h3>
+          <p class="text-xs text-sand-200 leading-relaxed">Solutions climato-intelligentes et chaînes de valeur résilientes.</p>
+        </div>
+      </div>
+      <!-- 2 -->
+      <div class="domain-photo">
+        <img src="https://images.unsplash.com/photo-1541544741938-0af808871cc0?q=80&w=800&auto=format&fit=crop" alt="Eau et résilience">
+        <div class="domain-photo-content">
+          <div class="text-xs font-bold tracking-widest text-sand-300 mb-1">02</div>
+          <h3 class="font-bold text-lg mb-1">Eau & résilience</h3>
+          <p class="text-xs text-sand-200 leading-relaxed">Gestion durable, accès et adaptation au stress hydrique.</p>
+        </div>
+      </div>
+      <!-- 3 -->
+      <div class="domain-photo">
+        <img src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?q=80&w=800&auto=format&fit=crop" alt="Climat et biodiversité">
+        <div class="domain-photo-content">
+          <div class="text-xs font-bold tracking-widest text-sand-300 mb-1">03</div>
+          <h3 class="font-bold text-lg mb-1">Climat & biodiversité</h3>
+          <p class="text-xs text-sand-200 leading-relaxed">Restauration des écosystèmes et réduction des émissions.</p>
+        </div>
+      </div>
+      <!-- 4 -->
+      <div class="domain-photo">
+        <img src="https://images.unsplash.com/photo-1532996122724-e3c354a0b15b?q=80&w=800&auto=format&fit=crop" alt="Économie circulaire">
+        <div class="domain-photo-content">
+          <div class="text-xs font-bold tracking-widest text-sand-300 mb-1">04</div>
+          <h3 class="font-bold text-lg mb-1">Économie circulaire</h3>
+          <p class="text-xs text-sand-200 leading-relaxed">Transformation locale et valorisation des ressources.</p>
+        </div>
+      </div>
+      <!-- 5 -->
+      <div class="domain-photo">
+        <img src="https://images.unsplash.com/photo-1518709268805-4e9042af9f23?q=80&w=800&auto=format&fit=crop" alt="Ressources naturelles">
+        <div class="domain-photo-content">
+          <div class="text-xs font-bold tracking-widest text-sand-300 mb-1">05</div>
+          <h3 class="font-bold text-lg mb-1">Ressources naturelles</h3>
+          <p class="text-xs text-sand-200 leading-relaxed">Exploitation raisonnée des sols, forêts et minerais.</p>
+        </div>
+      </div>
+      <!-- 6 -->
+      <div class="domain-photo">
+        <img src="https://images.unsplash.com/photo-1509391366360-2e959784a276?q=80&w=800&auto=format&fit=crop" alt="Énergies renouvelables">
+        <div class="domain-photo-content">
+          <div class="text-xs font-bold tracking-widest text-sand-300 mb-1">06</div>
+          <h3 class="font-bold text-lg mb-1">Énergies renouvelables</h3>
+          <p class="text-xs text-sand-200 leading-relaxed">Solutions solaires, éoliennes et hybrides décentralisées.</p>
+        </div>
+      </div>
+      <!-- 7 -->
+      <div class="domain-photo">
+        <img src="https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?q=80&w=800&auto=format&fit=crop" alt="Technologies vertes">
+        <div class="domain-photo-content">
+          <div class="text-xs font-bold tracking-widest text-sand-300 mb-1">07</div>
+          <h3 class="font-bold text-lg mb-1">Technologies vertes</h3>
+          <p class="text-xs text-sand-200 leading-relaxed">Innovations bas-carbone et procédés propres.</p>
+        </div>
+      </div>
+      <!-- 8 -->
+      <div class="domain-photo">
+        <img src="https://images.unsplash.com/photo-1554224155-6726b3ff858f?q=80&w=800&auto=format&fit=crop" alt="Financement climatique">
+        <div class="domain-photo-content">
+          <div class="text-xs font-bold tracking-widest text-sand-300 mb-1">08</div>
+          <h3 class="font-bold text-lg mb-1">Financement climatique</h3>
+          <p class="text-xs text-sand-200 leading-relaxed">Mécanismes innovants et mobilisation de capitaux verts.</p>
+        </div>
+      </div>
+      <!-- 9 -->
+      <div class="domain-photo">
+        <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=800&auto=format&fit=crop" alt="Numérique et IA">
+        <div class="domain-photo-content">
+          <div class="text-xs font-bold tracking-widest text-sand-300 mb-1">09</div>
+          <h3 class="font-bold text-lg mb-1">Numérique & IA</h3>
+          <p class="text-xs text-sand-200 leading-relaxed">Accélération des solutions par le numérique souverain.</p>
+        </div>
+      </div>
+      <!-- 10 -->
+      <div class="domain-photo">
+        <img src="https://images.unsplash.com/photo-1521737711867-e3b97375f902?q=80&w=800&auto=format&fit=crop" alt="Jeunesse et femmes">
+        <div class="domain-photo-content">
+          <div class="text-xs font-bold tracking-widest text-sand-300 mb-1">10</div>
+          <h3 class="font-bold text-lg mb-1">Jeunesse & femmes</h3>
+          <p class="text-xs text-sand-200 leading-relaxed">Inclusion, autonomisation et création d'emplois verts.</p>
+        </div>
+      </div>
+    </div>
+    <p class="text-xs text-ink-600 mt-2 text-center md:hidden">← Faites défiler →</p>
+  </div>
+</section>
+
+<!-- ============ PROGRAMME — timeline avec photos ============ -->
+<section id="programme" class="relative py-24 md:py-32 bg-sand-100 overflow-hidden">
+  <div class="relative max-w-6xl mx-auto px-6 lg:px-10">
+    <div class="max-w-3xl mb-12">
+      <div class="flex items-center gap-3 mb-6">
+        <div class="divider"></div>
+        <span class="eyebrow"><span class="section-num">05</span> — Le programme</span>
+      </div>
+      <h2 class="section-title text-4xl md:text-5xl mb-6 split-heading">Une approche progressive en 8 phases.</h2>
+      <p class="lead text-lg fade-text">Du lancement national à la finale panafricaine, le GAIC garantit une sélection rigoureuse des meilleures innovations africaines et leur passage à l'échelle.</p>
+    </div>
+
+    <div class="bg-white rounded-3xl p-6 md:p-10 border border-sand-200 shadow-sm">
+      <!-- Phase 1 -->
+      <div class="phase-row">
+        <div class="phase-thumb">
+          <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=400&auto=format&fit=crop" alt="Lancement">
+          <span class="num">01</span>
+        </div>
+        <div>
+          <h3 class="font-bold text-lg text-ink-900 mb-2">Lancement & mobilisation</h3>
+          <p class="text-sm text-ink-600 leading-relaxed">Identification des partenaires nationaux, lancement des appels à candidatures et mobilisation des écosystèmes d'innovation.</p>
+        </div>
+      </div>
+      <!-- Phase 2 -->
+      <div class="phase-row">
+        <div class="phase-thumb">
+          <img src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?q=80&w=400&auto=format&fit=crop" alt="Diagnostics">
+          <span class="num">02</span>
+        </div>
+        <div>
+          <h3 class="font-bold text-lg text-ink-900 mb-2">Diagnostics pays & identification des défis</h3>
+          <p class="text-sm text-ink-600 leading-relaxed">Lancement institutionnel continental avec gouvernements, organisations régionales, partenaires techniques et universités.</p>
+        </div>
+      </div>
+      <!-- Phase 3 -->
+      <div class="phase-row">
+        <div class="phase-thumb">
+          <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=400&auto=format&fit=crop" alt="Sélection nationale">
+          <span class="num">03</span>
+        </div>
+        <div>
+          <h3 class="font-bold text-lg text-ink-900 mb-2">Sélection nationale</h3>
+          <p class="text-sm text-ink-600 leading-relaxed">Compétitions nationales, évaluation par des jurys indépendants et désignation des représentants de chaque pays.</p>
+        </div>
+      </div>
+      <!-- Phase 4 -->
+      <div class="phase-row">
+        <div class="phase-thumb">
+          <img src="https://images.unsplash.com/photo-1524178232363-1fb2b075b655?q=80&w=400&auto=format&fit=crop" alt="Renforcement">
+          <span class="num">04</span>
+        </div>
+        <div>
+          <h3 class="font-bold text-lg text-ink-900 mb-2">Renforcement des capacités</h3>
+          <p class="text-sm text-ink-600 leading-relaxed">Programmes de formation, mentorat, coaching entrepreneurial et préparation des finalistes.</p>
+        </div>
+      </div>
+      <!-- Phase 5 -->
+      <div class="phase-row">
+        <div class="phase-thumb">
+          <img src="https://images.unsplash.com/photo-1515187029135-18ee286d815b?q=80&w=400&auto=format&fit=crop" alt="Demi-finales">
+          <span class="num">05</span>
+        </div>
+        <div>
+          <h3 class="font-bold text-lg text-ink-900 mb-2">Demi-finales régionales</h3>
+          <p class="text-sm text-ink-600 leading-relaxed">Cinq grandes compétitions régionales regroupant les meilleurs projets issus des différents pays.</p>
+        </div>
+      </div>
+      <!-- Phase 6 -->
+      <div class="phase-row">
+        <div class="phase-thumb">
+          <img src="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?q=80&w=400&auto=format&fit=crop" alt="Finale">
+          <span class="num">06</span>
+        </div>
+        <div>
+          <h3 class="font-bold text-lg text-ink-900 mb-2">Grande Finale panafricaine</h3>
+          <p class="text-sm text-ink-600 leading-relaxed">Rencontre continentale au Maroc réunissant finalistes, partenaires institutionnels, investisseurs et décideurs.</p>
+        </div>
+      </div>
+      <!-- Phase 7 -->
+      <div class="phase-row">
+        <div class="phase-thumb">
+          <img src="https://images.unsplash.com/photo-1559136555-9303baea8ebd?q=80&w=400&auto=format&fit=crop" alt="Incubation">
+          <span class="num">07</span>
+        </div>
+        <div>
+          <h3 class="font-bold text-lg text-ink-900 mb-2">Incubation & financement</h3>
+          <p class="text-sm text-ink-600 leading-relaxed">Accompagnement technique des lauréats, mise en relation avec les investisseurs et lancement des projets pilotes.</p>
+        </div>
+      </div>
+      <!-- Phase 8 -->
+      <div class="phase-row">
+        <div class="phase-thumb">
+          <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=400&auto=format&fit=crop" alt="Passage à l'échelle">
+          <span class="num">08</span>
+        </div>
+        <div>
+          <h3 class="font-bold text-lg text-ink-900 mb-2">Suivi & passage à l'échelle</h3>
+          <p class="text-sm text-ink-600 leading-relaxed">Évaluation des impacts, capitalisation des bonnes pratiques et diffusion des innovations dans plusieurs pays africains.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CALENDRIER — carte Lomé avec photo ============ -->
+<section id="calendrier" class="relative py-24 md:py-32 bg-sand-50 overflow-hidden">
+  <div class="relative max-w-7xl mx-auto px-6 lg:px-10">
+    <div class="max-w-3xl mb-12">
+      <div class="flex items-center gap-3 mb-6">
+        <div class="divider"></div>
+        <span class="eyebrow"><span class="section-num">06</span> — Calendrier global</span>
+      </div>
+      <h2 class="section-title text-4xl md:text-5xl mb-6 split-heading">De Lomé 2026 à la finale panafricaine.</h2>
+      <p class="lead text-lg fade-text">Une feuille de route claire, du niveau national à la finale continentale, avec des jalons précis pour chaque étape.</p>
+    </div>
+
+    <div class="grid lg:grid-cols-2 gap-12">
+      <div>
+        <div class="timeline-item"><div class="text-xs font-semibold tracking-wider text-forest-500 mb-1">PHASE 0 — 1</div><h3 class="font-semibold text-ink-900 mb-2">Mobilisation & lancement de Lomé</h3><p class="text-sm text-ink-600">Août — Septembre 2026</p></div>
+        <div class="timeline-item"><div class="text-xs font-semibold tracking-wider text-forest-500 mb-1">PHASE 2 — 3</div><h3 class="font-semibold text-ink-900 mb-2">Candidatures & pré-incubation</h3><p class="text-sm text-ink-600">Septembre — Décembre 2026</p></div>
+        <div class="timeline-item"><div class="text-xs font-semibold tracking-wider text-forest-500 mb-1">PHASE 4</div><h3 class="font-semibold text-ink-900 mb-2">Finales nationales</h3><p class="text-sm text-ink-600">Février — Mars 2027</p></div>
+        <div class="timeline-item"><div class="text-xs font-semibold tracking-wider text-forest-500 mb-1">PHASE 5 — 6</div><h3 class="font-semibold text-ink-900 mb-2">Accélération & régionales</h3><p class="text-sm text-ink-600">Avril — Juin 2027</p></div>
+        <div class="timeline-item"><div class="text-xs font-semibold tracking-wider text-forest-500 mb-1">PHASE 7 — 8</div><h3 class="font-semibold text-ink-900 mb-2">Accélération panafricaine & Finale</h3><p class="text-sm text-ink-600">Octobre — Novembre 2027</p></div>
+        <div class="timeline-item"><div class="text-xs font-semibold tracking-wider text-forest-500 mb-1">PHASE 9</div><h3 class="font-semibold text-ink-900 mb-2">Incubation post-compétition</h3><p class="text-sm text-ink-600">Décembre 2027 — Mars 2028</p></div>
+      </div>
+
+      <!-- Carte Lomé avec photo -->
+      <div id="lance" class="rounded-2xl overflow-hidden shadow-2xl lg:sticky lg:top-28 h-fit">
+        <div class="relative h-48">
+          <img src="https://images.unsplash.com/photo-1618828665005-9f8b7e1a9a4d?q=80&w=800&auto=format&fit=crop" alt="Lomé, Togo" class="w-full h-full object-cover">
+          <div class="absolute inset-0 bg-gradient-to-t from-ink-900 via-ink-900/40 to-transparent"></div>
+          <div class="absolute bottom-4 left-6 right-6">
+            <div class="text-xs font-semibold tracking-[0.2em] uppercase text-sand-300 mb-1">Lancement international</div>
+            <h3 class="text-3xl font-bold text-sand-50 leading-tight">Lomé, Togo</h3>
+          </div>
+        </div>
+        <div class="bg-ink-900 p-8">
+          <p class="text-sand-200 mb-6 leading-relaxed text-sm">Du 15 au 18 octobre 2026, le lancement international du GAIC réunira les Coordinations Nationales, les gouvernements, les institutions régionales, les investisseurs et les acteurs de l'innovation.</p>
+          <div class="space-y-3 mb-6">
+            <div class="flex gap-4"><div class="flex-shrink-0 w-16 text-sand-300 text-sm font-semibold">15 OCT</div><div class="text-sm text-sand-100">Accueil et installation des délégations</div></div>
+            <div class="flex gap-4"><div class="flex-shrink-0 w-16 text-sand-300 text-sm font-semibold">16 OCT</div><div class="text-sm text-sand-100">Travaux techniques des Coordinations Nationales</div></div>
+            <div class="flex gap-4"><div class="flex-shrink-0 w-16 text-sand-300 text-sm font-semibold">17 OCT</div><div class="text-sm text-sand-100">Cérémonie officielle, table ronde de haut niveau et conférence de presse</div></div>
+            <div class="flex gap-4"><div class="flex-shrink-0 w-16 text-sand-300 text-sm font-semibold">18 OCT</div><div class="text-sm text-sand-100">Départ des délégations</div></div>
+          </div>
+          <a href="#partenaires" class="btn-primary bg-sand-50 text-forest-900 border-sand-50 hover:bg-sand-200 hover:border-sand-200 w-full justify-center magnetic-btn">
+            <span>Rejoindre la dynamique</span>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ IMPACT — cards avec images ============ -->
+<section id="impact" class="relative py-24 md:py-32 bg-sand-100 overflow-hidden">
+  <div class="relative max-w-7xl mx-auto px-6 lg:px-10">
+    <div class="max-w-3xl mb-12">
+      <div class="flex items-center gap-3 mb-6">
+        <div class="divider"></div>
+        <span class="eyebrow"><span class="section-num">07</span> — Impacts attendus</span>
+      </div>
+      <h2 class="section-title text-4xl md:text-5xl mb-6 split-heading">Des effets durables à cinq niveaux.</h2>
+      <p class="lead text-lg fade-text">Le GAIC produit des impacts mesurables sur l'environnement, l'économie, la société, la science et les institutions du continent.</p>
+    </div>
+
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
+      <!-- 1 -->
+      <div class="impact-img-card">
+        <img src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?q=80&w=800&auto=format&fit=crop" alt="Environnement">
+        <div class="p-6">
+          <div class="w-12 h-12 rounded-full bg-forest-500 text-sand-50 flex items-center justify-center mb-3">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+          </div>
+          <h3 class="font-bold text-lg text-sand-50 mb-2">Impact environnemental</h3>
+          <ul class="text-sm text-sand-200 space-y-1 leading-relaxed">
+            <li>— Solutions d'adaptation climatique</li>
+            <li>— Restauration des écosystèmes</li>
+            <li>— Réduction des émissions de GES</li>
+          </ul>
+        </div>
+      </div>
+      <!-- 2 -->
+      <div class="impact-img-card">
+        <img src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?q=80&w=800&auto=format&fit=crop" alt="Économie">
+        <div class="p-6">
+          <div class="w-12 h-12 rounded-full bg-forest-500 text-sand-50 flex items-center justify-center mb-3">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M12 1v22M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+          </div>
+          <h3 class="font-bold text-lg text-sand-50 mb-2">Impact économique</h3>
+          <ul class="text-sm text-sand-200 space-y-1 leading-relaxed">
+            <li>— Création de startups vertes</li>
+            <li>— Création d'emplois durables</li>
+            <li>— Mobilisation de financements</li>
+          </ul>
+        </div>
+      </div>
+      <!-- 3 -->
+      <div class="impact-img-card">
+        <img src="https://images.unsplash.com/photo-1521737711867-e3b97375f902?q=80&w=800&auto=format&fit=crop" alt="Social">
+        <div class="p-6">
+          <div class="w-12 h-12 rounded-full bg-forest-500 text-sand-50 flex items-center justify-center mb-3">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><circle cx="19" cy="9" r="2"/></svg>
+          </div>
+          <h3 class="font-bold text-lg text-sand-50 mb-2">Impact social</h3>
+          <ul class="text-sm text-sand-200 space-y-1 leading-relaxed">
+            <li>— Insertion des jeunes</li>
+            <li>— Autonomisation des femmes</li>
+            <li>— Amélioration du cadre de vie</li>
+          </ul>
+        </div>
+      </div>
+      <!-- 4 -->
+      <div class="impact-img-card">
+        <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?q=80&w=800&auto=format&fit=crop" alt="Science">
+        <div class="p-6">
+          <div class="w-12 h-12 rounded-full bg-forest-500 text-sand-50 flex items-center justify-center mb-3">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2zM22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+          </div>
+          <h3 class="font-bold text-lg text-sand-50 mb-2">Impact scientifique</h3>
+          <ul class="text-sm text-sand-200 space-y-1 leading-relaxed">
+            <li>— Coopération universitaire</li>
+            <li>— Recherche appliquée valorisée</li>
+            <li>— Partenariats scientifiques</li>
+          </ul>
+        </div>
+      </div>
+      <!-- 5 -->
+      <div class="impact-img-card">
+        <img src="https://images.unsplash.com/photo-1541872703-74c5e44368f9?q=80&w=800&auto=format&fit=crop" alt="Institutions">
+        <div class="p-6">
+          <div class="w-12 h-12 rounded-full bg-forest-500 text-sand-50 flex items-center justify-center mb-3">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M3 21h18M3 10h18M5 6l7-3 7 3M4 10v11M20 10v11"/></svg>
+          </div>
+          <h3 class="font-bold text-lg text-sand-50 mb-2">Impact institutionnel</h3>
+          <ul class="text-sm text-sand-200 space-y-1 leading-relaxed">
+            <li>— Coopération Sud-Sud</li>
+            <li>— Réseaux d'innovation</li>
+            <li>— Gouvernements ↔ secteur privé</li>
+          </ul>
+        </div>
+      </div>
+      <!-- 6 — Alignement (fond vert uni, pas photo) -->
+      <div class="impact-img-card bg-forest-500">
+        <div class="p-6">
+          <div class="w-12 h-12 rounded-full bg-forest-700 text-sand-50 flex items-center justify-center mb-3">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+          </div>
+          <h3 class="font-bold text-lg text-sand-50 mb-2">Alignement stratégique</h3>
+          <ul class="text-sm text-sand-100 space-y-1 leading-relaxed">
+            <li>— Agenda 2063 Union africaine</li>
+            <li>— Objectifs de Développement Durable</li>
+            <li>— Accord de Paris sur le climat</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PARTENAIRES — bannière + logos ============ -->
+<section id="partenaires" class="relative py-24 md:py-32 bg-forest-500 text-sand-50 overflow-hidden">
+  <div class="circle-ring w-[560px] h-[560px] -top-40 -left-40 text-sand-50 opacity-10"></div>
+  <div class="relative max-w-7xl mx-auto px-6 lg:px-10">
+    <div class="grid lg:grid-cols-12 gap-10 mb-10 items-center">
+      <div class="lg:col-span-6">
+        <div class="flex items-center gap-3 mb-6">
+          <div class="w-12 h-px bg-sand-50 opacity-50"></div>
+          <span class="text-xs font-semibold tracking-[0.2em] uppercase text-sand-200"><span class="section-num text-sand-300">08</span> — Partenariats</span>
+        </div>
+        <h2 class="section-title text-4xl md:text-5xl text-sand-50 mb-6 split-heading">Construisons ensemble l'Afrique durable.</h2>
+        <p class="lead text-sand-100 text-lg fade-text">Le modèle du GAIC repose sur une logique de co-construction et de financement hybride. Chaque partenaire devient acteur de la transformation écologique du continent.</p>
+      </div>
+      <div class="lg:col-span-6">
+        <div class="rounded-2xl overflow-hidden border border-sand-50/20 shadow-2xl img-reveal">
+          <img src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?q=80&w=800&auto=format&fit=crop" alt="Collaboration partenaires" class="w-full h-64 object-cover">
+        </div>
+      </div>
+    </div>
+
+    <div class="p-8 rounded-2xl bg-forest-600 border border-forest-400/30 mb-10">
+      <h3 class="font-semibold text-xl mb-5">Formes de partenariat</h3>
+      <ul class="grid md:grid-cols-2 gap-3 text-sm text-sand-100">
+        <li class="flex gap-3"><span class="text-sand-300">—</span>Accompagnement institutionnel</li>
+        <li class="flex gap-3"><span class="text-sand-300">—</span>Expertise technique</li>
+        <li class="flex gap-3"><span class="text-sand-300">—</span>Financement d'une Innovation Window</li>
+        <li class="flex gap-3"><span class="text-sand-300">—</span>Sponsoring d'un Challenge</li>
+        <li class="flex gap-3 md:col-span-2"><span class="text-sand-300">—</span>Investissement dans les solutions sélectionnées</li>
+      </ul>
+    </div>
+
+    <div>
+      <div class="text-xs font-semibold tracking-[0.2em] uppercase text-sand-200 mb-6">Partenaires institutionnels & techniques</div>
+      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+        <div class="h-14 flex items-center justify-center px-5 bg-forest-600/40 border border-forest-400/20 rounded-xl text-xs font-medium text-sand-100 tracking-wider hover:border-forest-300 transition-colors">GOUVERNEMENTS</div>
+        <div class="h-14 flex items-center justify-center px-5 bg-forest-600/40 border border-forest-400/20 rounded-xl text-xs font-medium text-sand-100 tracking-wider hover:border-forest-300 transition-colors">BANQUES</div>
+        <div class="h-14 flex items-center justify-center px-5 bg-forest-600/40 border border-forest-400/20 rounded-xl text-xs font-medium text-sand-100 tracking-wider hover:border-forest-300 transition-colors">UNIVERSITÉS</div>
+        <div class="h-14 flex items-center justify-center px-5 bg-forest-600/40 border border-forest-400/20 rounded-xl text-xs font-medium text-sand-100 tracking-wider hover:border-forest-300 transition-colors">FONDATIONS</div>
+        <div class="h-14 flex items-center justify-center px-5 bg-forest-600/40 border border-forest-400/20 rounded-xl text-xs font-medium text-sand-100 tracking-wider hover:border-forest-300 transition-colors">INCUBATEURS</div>
+        <div class="h-14 flex items-center justify-center px-5 bg-forest-600/40 border border-forest-400/20 rounded-xl text-xs font-medium text-sand-100 tracking-wider hover:border-forest-300 transition-colors">INVESTISSEURS</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CTA FINAL ============ -->
+<section class="relative py-32 md:py-40 overflow-hidden">
+  <div class="absolute inset-0 z-0">
+    <img src="https://images.unsplash.com/photo-1614730341194-75c607400070?q=80&w=1920&auto=format&fit=crop" alt="" class="w-full h-full object-cover" aria-hidden="true">
+    <div class="absolute inset-0 bg-gradient-to-b from-ink-900/85 via-ink-900/85 to-ink-900/95"></div>
+  </div>
+
+  <div class="relative max-w-5xl mx-auto px-6 lg:px-10 text-center z-10">
+    <div class="flex items-center justify-center gap-3 mb-6">
+      <div class="w-12 h-px bg-sand-50 opacity-70"></div>
+      <span class="text-xs font-semibold tracking-[0.22em] uppercase text-sand-200">Rejoindre le mouvement</span>
+      <div class="w-12 h-px bg-sand-50 opacity-70"></div>
+    </div>
+    <h2 class="text-4xl md:text-6xl font-bold text-sand-50 mb-6 leading-[1.05] tracking-tight split-heading">
+      <span class="split-line block overflow-hidden"><span class="block">L'Afrique a les talents.</span></span>
+      <span class="split-line block overflow-hidden"><span class="block text-forest-300">Le GAIC les connecte.</span></span>
+    </h2>
+    <p class="text-lg md:text-xl text-sand-100 max-w-2xl mx-auto mb-10 leading-relaxed fade-text">Gouvernements, organisations régionales, investisseurs, universités, fondations et écosystèmes d'innovation : rejoignez la plateforme qui transforme les défis africains en solutions africaines.</p>
+    <div class="flex flex-wrap gap-4 justify-center">
+      <a href="mailto:lennahtoyi91@gmail.com" class="btn-primary bg-sand-50 text-forest-900 border-sand-50 hover:bg-sand-200 hover:border-sand-200 magnetic-btn">
+        <span>Contacter la coordination</span>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><path d="M22 6l-10 7L2 6"/></svg>
+      </a>
+      <a href="#top" class="btn-outline border-sand-50 text-sand-50 hover:bg-sand-50 hover:text-forest-900 magnetic-btn">
+        <span>Retour en haut</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ============ FOOTER ============ -->
+<footer class="bg-ink-900 text-sand-200 pt-20 pb-10">
+  <div class="max-w-7xl mx-auto px-6 lg:px-10">
+    <div class="grid md:grid-cols-12 gap-10 pb-12 border-b border-ink-700">
+      <div class="md:col-span-4">
+        <div class="flex items-center gap-3 mb-6">
+          <div class="relative w-11 h-11">
+            <div class="absolute inset-0 rounded-full border border-sand-50/40"></div>
+            <div class="absolute inset-1.5 rounded-full bg-forest-500 morph-blob"></div>
+            <span class="absolute inset-0 flex items-center justify-center text-sand-50 text-xs font-bold tracking-wider">GA</span>
+          </div>
+          <div class="leading-tight">
+            <div class="font-bold text-sand-50 text-sm">Green African</div>
+            <div class="text-xs text-sand-300 font-medium tracking-wide">IMPACT CHALLENGE</div>
+          </div>
+        </div>
+        <p class="text-sm text-sand-300 leading-relaxed mb-6 max-w-sm">Des défis africains aux solutions africaines. Identifier, Innover, Expérimenter, Financer, Mettre à l'échelle.</p>
+        <div class="flex gap-3">
+          <a href="#" class="w-10 h-10 rounded-full border border-ink-700 flex items-center justify-center hover:border-forest-500 hover:text-forest-500 transition-colors" aria-label="LinkedIn"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.063 2.063 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg></a>
+          <a href="#" class="w-10 h-10 rounded-full border border-ink-700 flex items-center justify-center hover:border-forest-500 hover:text-forest-500 transition-colors" aria-label="Facebook"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg></a>
+        </div>
+      </div>
+      <div class="md:col-span-2">
+        <div class="text-xs font-semibold tracking-[0.2em] uppercase text-sand-50 mb-5">Programme</div>
+        <ul class="space-y-3 text-sm">
+          <li><a href="#contexte" class="hover:text-forest-400 transition-colors">Contexte</a></li>
+          <li><a href="#mission" class="hover:text-forest-400 transition-colors">Vision & Mission</a></li>
+          <li><a href="#domaines" class="hover:text-forest-400 transition-colors">Domaines</a></li>
+          <li><a href="#programme" class="hover:text-forest-400 transition-colors">Programme</a></li>
+        </ul>
+      </div>
+      <div class="md:col-span-2">
+        <div class="text-xs font-semibold tracking-[0.2em] uppercase text-sand-50 mb-5">Engagement</div>
+        <ul class="space-y-3 text-sm">
+          <li><a href="#impact" class="hover:text-forest-400 transition-colors">Impacts</a></li>
+          <li><a href="#partenaires" class="hover:text-forest-400 transition-colors">Partenaires</a></li>
+          <li><a href="#lance" class="hover:text-forest-400 transition-colors">Lomé 2026</a></li>
+        </ul>
+      </div>
+      <div class="md:col-span-4">
+        <div class="text-xs font-semibold tracking-[0.2em] uppercase text-sand-50 mb-5">Coordination</div>
+        <div class="text-sm text-sand-300 leading-relaxed mb-4">
+          <div class="font-semibold text-sand-50 mb-1">Dr Toyi LEN'NAH</div>
+          <div>Président du GAIC & CADD</div>
+        </div>
+        <ul class="space-y-2 text-sm">
+          <li class="flex items-center gap-2"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/></svg>+228 90 10 99 99</li>
+          <li class="flex items-center gap-2"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><path d="M22 6l-10 7L2 6"/></svg>lennahtoyi91@gmail.com</li>
+          <li class="flex items-center gap-2"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/></svg>www.greenafricanimpact.com</li>
+        </ul>
+      </div>
+    </div>
+    <div class="flex flex-col md:flex-row justify-between items-center gap-4 pt-8 text-xs text-sand-300">
+      <div>© 2026 Green African Impact Challenge. Tous droits réservés.</div>
+      <div class="flex gap-6">
+        <a href="#" class="hover:text-forest-400 transition-colors">Mentions légales</a>
+        <a href="#" class="hover:text-forest-400 transition-colors">Confidentialité</a>
+        <a href="#top" class="hover:text-forest-400 transition-colors">Retour en haut</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+const lenis = new Lenis({
+  duration: 0.8,
+  easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+  smooth: true,
+  smoothTouch: false,
+  touchMultiplier: 2,
+});
+function raf(time) { lenis.raf(time); requestAnimationFrame(raf); }
+requestAnimationFrame(raf);
+
+gsap.registerPlugin(ScrollTrigger);
+
+const burger = document.getElementById('burger');
+const mobileMenu = document.getElementById('mobileMenu');
+if (burger && mobileMenu) {
+  burger.addEventListener('click', () => {
+    const open = mobileMenu.classList.toggle('open');
+    burger.setAttribute('aria-expanded', open);
+  });
+  document.querySelectorAll('#mobileMenu a').forEach(a => a.addEventListener('click', () => {
+    mobileMenu.classList.remove('open');
+    burger.setAttribute('aria-expanded', 'false');
+  }));
+}
+
+const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+document.addEventListener('DOMContentLoaded', () => {
+  lenis.on('scroll', ScrollTrigger.update);
+  gsap.ticker.add((time) => lenis.raf(time * 1000));
+  gsap.ticker.lagSmoothing(0);
+
+  if (reduceMotion) return;
+
+  // Hero
+  const heroTl = gsap.timeline({ delay: 0.3 });
+  heroTl.from('.split-line span', { y: 100, opacity: 0, duration: 0.8, stagger: 0.1, ease: 'power3.out' })
+        .from('.fade-text', { y: 30, opacity: 0, duration: 0.6, stagger: 0.08, ease: 'power3.out' }, '-=0.3');
+
+  // Parallax
+  gsap.to('.parallax-layer', {
+    yPercent: 25, ease: 'none',
+    scrollTrigger: { trigger: 'body', start: 'top top', end: 'bottom top', scrub: true }
+  });
+
+  // Counters
+  document.querySelectorAll('.counter').forEach(counter => {
+    const target = parseInt(counter.getAttribute('data-target'));
+    ScrollTrigger.create({
+      trigger: counter, start: 'top 85%', once: true,
+      onEnter: () => gsap.to(counter, {
+        innerText: target, duration: 1.5, ease: 'power2.out',
+        snap: { innerText: 1 },
+        onUpdate() { counter.innerText = Math.round(this.targets()[0].innerText); }
+      })
+    });
+  });
+
+  // Headings
+  gsap.utils.toArray('.split-heading').forEach(h => {
+    gsap.from(h, { y: 60, opacity: 0, duration: 0.8, ease: 'power3.out',
+      scrollTrigger: { trigger: h, start: 'top 85%' } });
+  });
+
+  // Cards
+  gsap.utils.toArray('.card-animate, .img-card').forEach((card, i) => {
+    gsap.from(card, { y: 60, opacity: 0, duration: 0.7, ease: 'power3.out',
+      scrollTrigger: { trigger: card, start: 'top 88%' }, delay: (i % 4) * 0.08 });
+  });
+
+  // Domain photo tiles
+  gsap.utils.toArray('.domain-photo').forEach((tile, i) => {
+    gsap.from(tile, { y: 40, opacity: 0, duration: 0.6, ease: 'power3.out',
+      scrollTrigger: { trigger: tile, start: 'top 92%' }, delay: (i % 5) * 0.05 });
+  });
+
+  // Phase rows
+  gsap.utils.toArray('.phase-row').forEach((row, i) => {
+    gsap.from(row, { x: -30, opacity: 0, duration: 0.6, ease: 'power3.out',
+      scrollTrigger: { trigger: row, start: 'top 90%' }, delay: (i % 3) * 0.05 });
+  });
+
+  // Impact cards
+  gsap.utils.toArray('.impact-img-card').forEach((card, i) => {
+    gsap.from(card, { y: 60, opacity: 0, scale: 0.96, duration: 0.7, ease: 'power3.out',
+      scrollTrigger: { trigger: card, start: 'top 90%' }, delay: (i % 3) * 0.08 });
+  });
+
+  // Immersive banners reveal
+  gsap.utils.toArray('.immersive-banner, .img-reveal').forEach(banner => {
+    gsap.from(banner, { scale: 1.05, opacity: 0, duration: 1, ease: 'power3.out',
+      scrollTrigger: { trigger: banner, start: 'top 85%' } });
+  });
+
+  // Magnetic buttons
+  document.querySelectorAll('.magnetic-btn').forEach(btn => {
+    btn.addEventListener('mousemove', (e) => {
+      const rect = btn.getBoundingClientRect();
+      gsap.to(btn, {
+        x: (e.clientX - rect.left - rect.width / 2) * 0.3,
+        y: (e.clientY - rect.top - rect.height / 2) * 0.3,
+        duration: 0.2, ease: 'power2.out'
+      });
+    });
+    btn.addEventListener('mouseleave', () => {
+      gsap.to(btn, { x: 0, y: 0, duration: 0.4, ease: 'elastic.out(1, 0.5)' });
+    });
+  });
+
+  // Rings parallax
+  gsap.utils.toArray('.circle-ring').forEach((ring, i) => {
+    gsap.to(ring, { y: -80 * (i % 2 === 0 ? 1 : -1), ease: 'none',
+      scrollTrigger: { trigger: ring, start: 'top bottom', end: 'bottom top', scrub: true } });
+  });
+});
+
+// Active nav
+const sections = document.querySelectorAll('section[id]');
+const navLinks = document.querySelectorAll('.nav-link');
+window.addEventListener('scroll', () => {
+  let current = '';
+  sections.forEach(s => { if (scrollY >= s.offsetTop - 150) current = s.id; });
+  navLinks.forEach(l => {
+    l.classList.remove('active');
+    if (l.getAttribute('href') === '#' + current) l.classList.add('active');
+  });
+});
+</script>
+
+</body>
+</html>
